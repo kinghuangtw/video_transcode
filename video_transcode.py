@@ -1,18 +1,17 @@
-import os
-import dotenv
-import json
+import configparser
 
-# Load the .env file
-dotenv.load_dotenv()
+# Load the INI-style .env file
+config = configparser.ConfigParser()
+config.read('.env')
 
-# Function to fetch encoding parameters based on resolution
+# Assuming the encoding parameters are based on resolution, here's an example of how to extract them
+resolution = '1920x1080'  # Example resolution, this should be dynamic based on your needs
 
-def get_encoding_parameters(resolution):
-    encoding_parameters = json.loads(os.getenv('ENCODING_PARAMETERS', '{}'))
-    return encoding_parameters.get(resolution, {})
-
-# Example usage
-resolution = '1080p'  # This should be set dynamically
-encoding_settings = get_encoding_parameters(resolution)
-
-# Proceed with the transcoding process using encoding_settings...
+if resolution in config:
+    encoding_params = config[resolution]
+    # Now you can access the parameters like this:
+    bitrate = encoding_params.get('bitrate')
+    framerate = encoding_params.get('framerate')
+    # Add logic to use these parameters in your encoding process
+else:
+    print(f'No encoding parameters found for resolution: {resolution}')
