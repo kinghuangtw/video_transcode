@@ -1,1 +1,1 @@
-transcode input videos into one video
+这个视频转码工具接收参数: `out_video` (输出视频), `resolution` (分辨率), `input_video1` [ `input_video2` ... `input_videoN` ] (一个或多个输入视频)。该工具利用 FFmpeg 根据 .env 文件中的编码参数进行转码和合并视频。
